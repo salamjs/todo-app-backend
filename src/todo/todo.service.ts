@@ -87,6 +87,16 @@ export class TodoService {
     }
   }
 
+  findAll(): Promise<Todo[]> {
+    const userId = this.requestService.getUser().id;
+
+    return this.todoRepository.find({
+      where: {
+        createdBy: { id: userId },
+      },
+    });
+  }
+
   findAllByStatus(status: TodoStatus): Promise<Todo[]> {
     const userId = this.requestService.getUser().id;
 

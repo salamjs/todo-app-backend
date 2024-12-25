@@ -80,6 +80,23 @@ export class TodoController {
     return this.todoService.delete(Number(id));
   }
 
+  @Get('/list/all')
+  @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(AuthGuard)
+  @ApiOperation({
+    summary: 'Получение списка todo',
+    operationId: 'getList',
+  })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'Success',
+    type: Todo,
+    isArray: true,
+  })
+  findAll(): Promise<Todo[]> {
+    return this.todoService.findAll();
+  }
+
   @Get('/list/:status')
   @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(AuthGuard)
